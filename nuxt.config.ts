@@ -1,4 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+
+import "./app/lib/env";
+
 export default defineNuxtConfig({
   modules: [
     "@nuxt/eslint",
