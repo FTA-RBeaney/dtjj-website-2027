@@ -1,5 +1,10 @@
 minimumReleaseAgeExcludePrune: true
+
 trustPolicy: no-downgrade
+# semver@6.3.1 is a legit 2023 backport published without provenance after 7.5.x had it
+trustPolicyExclude:
+  - semver@6.3.1
+
 shellEmulator: true
 
 allowBuilds:
