@@ -20,6 +20,8 @@ const range = shallowRef<Range>({
   end: new Date(),
 });
 const period = ref<Period>("daily");
+
+const { data: events } = await useFetch("/api/events");
 </script>
 
 <template>
@@ -64,6 +66,8 @@ const period = ref<Period>("daily");
       </UDashboardToolbar>
     </template>
 
-    <template #body />
+    <template #body>
+      <UCard :title="events?.[0]?.name ?? 'No Event'" class="w-full" />
+    </template>
   </UDashboardPanel>
 </template>

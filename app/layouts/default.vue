@@ -4,6 +4,8 @@ import type { NavigationMenuItem } from "@nuxt/ui";
 const route = useRoute();
 const toast = useToast();
 
+const { data: events } = await useFetch("/api/events"); ;
+
 const open = ref(false);
 
 const links = [[{
@@ -60,16 +62,6 @@ const links = [[{
       open.value = false;
     },
   }],
-}], [{
-  label: "Feedback",
-  icon: "i-lucide-message-circle",
-  to: "https://github.com/nuxt-ui-templates/dashboard",
-  target: "_blank",
-}, {
-  label: "Help & Support",
-  icon: "i-lucide-info",
-  to: "https://github.com/nuxt-ui-templates/dashboard",
-  target: "_blank",
 }]] satisfies NavigationMenuItem[][];
 
 const groups = computed(() => [{
@@ -87,6 +79,15 @@ const groups = computed(() => [{
     target: "_blank",
   }],
 }]);
+
+const teams = computed(() => events.value?.map((event: any) => ({
+  id: event.id,
+  label: event.name,
+  avatar: {
+    src: event?.imageUrl,
+    alt: event?.name,
+  },
+})));
 
 onMounted(async () => {
   const cookie = useCookie("cookie-consent");
@@ -125,7 +126,11 @@ onMounted(async () => {
       :ui="{ footer: 'lg:border-t lg:border-default' }"
     >
       <template #header="{ collapsed }">
-        <TeamsMenu :collapsed="collapsed" />
+        <TeamsMenu
+          v-if="teams?.length"
+          :collapsed="collapsed"
+          :teams="teams"
+        />
       </template>
 
       <template #default="{ collapsed }">
