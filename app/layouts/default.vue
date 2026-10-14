@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { NavigationMenuItem } from "@nuxt/ui";
 
+const user = useSupabaseUser();
 const route = useRoute();
 const toast = useToast();
 
@@ -154,13 +155,15 @@ onMounted(async () => {
       </template>
 
       <template #footer="{ collapsed }">
-        <UserMenu :collapsed="collapsed" />
+        <UserMenu :collapsed="collapsed" :user="user" />
       </template>
     </UDashboardSidebar>
 
     <UDashboardSearch :groups="groups" />
 
-    <slot />
+    <div class="w-100 flex-grow">
+      <slot />
+    </div>
 
     <NotificationsSlideover />
   </UDashboardGroup>

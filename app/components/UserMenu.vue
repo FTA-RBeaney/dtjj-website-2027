@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import type { DropdownMenuItem } from "@nuxt/ui";
 
-defineProps<{
+const props = defineProps<{
   collapsed?: boolean;
+  user?: any;
 }>();
 
 const colorMode = useColorMode();
@@ -11,18 +12,9 @@ const appConfig = useAppConfig();
 const colors = ["red", "orange", "amber", "yellow", "lime", "green", "emerald", "teal", "cyan", "sky", "blue", "indigo", "violet", "purple", "fuchsia", "pink", "rose"];
 const neutrals = ["slate", "gray", "zinc", "neutral", "stone", "taupe", "mauve", "mist", "olive"];
 
-const user = ref({
-  name: "Benjamin Canac",
-  avatar: {
-    src: "https://github.com/benjamincanac.png",
-    alt: "Benjamin Canac",
-  },
-});
-
 const items = computed<DropdownMenuItem[][]>(() => ([[{
   type: "label",
-  label: user.value.name,
-  avatar: user.value.avatar,
+  label: props.user?.email,
 }], [{
   label: "Profile",
   icon: "i-lucide-user",
@@ -118,8 +110,8 @@ const items = computed<DropdownMenuItem[][]>(() => ([[{
   >
     <UButton
       v-bind="{
-        ...user,
-        label: collapsed ? undefined : user?.name,
+        avatar,
+        label: collapsed ? undefined : user?.email,
         trailingIcon: collapsed ? undefined : 'i-lucide-chevrons-up-down',
       }"
       color="neutral"

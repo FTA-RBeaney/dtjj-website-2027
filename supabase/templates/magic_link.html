@@ -1,0 +1,23 @@
+<h2>Your DTJJ login link</h2>
+
+<p>Click the button below to sign in. This link expires in 1 hour and can only be used once.</p>
+
+<p>
+  <a
+    href="{{ .ConfirmationURL }}"
+    style="
+      display: inline-block;
+      padding: 12px 20px;
+      background: #111;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+    "
+  >
+    Sign in
+  </a>
+</p>
+
+<p>Or enter this code: <strong>{{ .Token }}</strong></p>
+
+<p>If you didn't request this, you can safely ignore this email.</p>

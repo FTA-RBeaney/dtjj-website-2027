@@ -13,7 +13,7 @@ export default withNuxt(
       semi: true,
       quotes: "double",
     },
-    ignores: [".pnpm-store/**", "**/migrations/*", "drizzle/**"],
+    ignores: [".pnpm-store/**", "**/migrations/*", "drizzle/**", "supabase/**"],
   }, {
     rules: {
       "vue/max-attributes-per-line": ["error", {

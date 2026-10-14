@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "@nuxt/scripts",
     "@nuxtjs/google-fonts",
+    "@nuxtjs/supabase",
   ],
 
   devtools: {
