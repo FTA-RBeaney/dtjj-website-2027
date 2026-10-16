@@ -45,20 +45,20 @@ const links = [[{
       open.value = false;
     },
   }, {
-    label: "Members",
-    to: "/settings/members",
+    label: "Team",
+    to: "/settings/team",
     onSelect: () => {
       open.value = false;
     },
   }, {
-    label: "Notifications",
-    to: "/settings/notifications",
+    label: "Tickets",
+    to: "/settings/tickets",
     onSelect: () => {
       open.value = false;
     },
   }, {
-    label: "Security",
-    to: "/settings/security",
+    label: "Discounts",
+    to: "/settings/discounts",
     onSelect: () => {
       open.value = false;
     },
@@ -143,6 +143,7 @@ onMounted(async () => {
           orientation="vertical"
           tooltip
           popover
+          class="text-xs"
         />
 
         <UNavigationMenu

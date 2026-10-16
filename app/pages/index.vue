@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { DropdownMenuItem } from "@nuxt/ui";
-import type { Period, Range } from "~/types";
-import { sub } from "date-fns";
+import moment from "moment";
 
 const { isNotificationsSlideoverOpen } = useDashboard();
 
@@ -15,22 +14,19 @@ const items = [[{
   to: "/customers",
 }]] satisfies DropdownMenuItem[][];
 
-const range = shallowRef<Range>({
-  start: sub(new Date(), { days: 14 }),
-  end: new Date(),
-});
-const period = ref<Period>("daily");
-
 const { data: events } = await useFetch("/api/events");
+
+const startDate = moment(events?.value?.[0]?.startDate).format("MMMM Do YYYY");
+const endDate = moment(events?.value?.[0]?.endDate).format("MMMM Do YYYY");
 </script>
 
 <template>
   <UDashboardPanel id="home">
     <template #header>
-      <UDashboardNavbar title="Home" :ui="{ right: 'gap-3' }">
-        <template #leading>
+      <UDashboardNavbar :title="`${events?.[0]?.name ?? 'Event'} (${startDate} - ${endDate})`" :ui="{ right: 'gap-3' }">
+        <!-- <template #leading>
           <UDashboardSidebarCollapse />
-        </template>
+        </template> -->
 
         <template #right>
           <UTooltip text="Notifications" :shortcuts="['N']">
@@ -55,19 +51,11 @@ const { data: events } = await useFetch("/api/events");
           </UDropdownMenu>
         </template>
       </UDashboardNavbar>
-
-      <UDashboardToolbar>
-        <template #left>
-          <!-- NOTE: The `-ms-1` class is used to align with the `DashboardSidebarCollapse` button here. -->
-          <HomeDateRangePicker v-model="range" class="-ms-1" />
-
-          <HomePeriodSelect v-model="period" :range="range" />
-        </template>
-      </UDashboardToolbar>
     </template>
 
     <template #body>
-      <UCard :title="events?.[0]?.name ?? 'No Event'" class="w-full" />
+      <!-- stat cards -->
+      <HomeStats />
     </template>
   </UDashboardPanel>
 </template>
