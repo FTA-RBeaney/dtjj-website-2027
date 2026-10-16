@@ -12,6 +12,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "typecheck": "nuxt typecheck",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "prepare": "husky"
   },
   "dependencies": {
@@ -46,6 +48,7 @@
     "lint-staged": "^17.6.0",
     "tsx": "^4.23.15",
     "typescript": "^6.0.3",
+    "vitest": "^5.0.5",
     "vue-tsc": "^3.3.12"
   },
   "lint-staged": {
