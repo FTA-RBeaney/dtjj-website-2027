@@ -6,6 +6,7 @@ import * as z from "zod";
 const { data: events } = await useFetch("/api/events");
 
 const profileSchema = z.object({
+  id: z.string(),
   name: z.string().min(2, "Too short"),
   startDate: z.string(),
   endDate: z.string(),
@@ -14,19 +15,40 @@ const profileSchema = z.object({
 type ProfileSchema = z.output<typeof profileSchema>;
 
 const profile = reactive<Partial<ProfileSchema>>({
+  id: events?.value?.[0]?.id,
   name: events?.value?.[0]?.name ?? "No Event",
   startDate: moment(events?.value?.[0]?.startDate).format("YYYY-MM-DD"),
   endDate: moment(events?.value?.[0]?.endDate).format("YYYY-MM-DD"),
 });
+
 const toast = useToast();
 async function onSubmit(event: FormSubmitEvent<ProfileSchema>) {
+  const { data: updatedEvent } = await useFetch("/api/events", {
+    method: "PATCH",
+    body: JSON.stringify({
+      id: event.data.id,
+      name: event.data.name,
+      startDate: event.data.startDate,
+      endDate: event.data.endDate,
+    }),
+  });
+
+  if (!updatedEvent?.value) {
+    toast.add({
+      title: "Error",
+      description: "Failed to update the event.",
+      icon: "i-ph-warning-circle",
+      color: "error",
+    });
+    return;
+  }
+
   toast.add({
     title: "Success",
-    description: "Your settings have been updated.",
-    icon: "i-lucide-check",
+    description: `${updatedEvent?.value?.name} has been updated successfully.`,
+    icon: "i-ph-check",
     color: "success",
   });
-  console.log(event.data);
 }
 </script>
 
@@ -38,65 +60,68 @@ async function onSubmit(event: FormSubmitEvent<ProfileSchema>) {
       :state="profile"
       @submit="onSubmit"
     >
-      <UPageCard
+      <UCard
         title="Profile"
-        description="These informations will be displayed publicly."
-        variant="naked"
+        description="This information will be displayed publicly."
         orientation="horizontal"
         class="mb-4"
       >
-        <UButton
-          form="settings"
-          label="Save changes"
-          color="neutral"
-          type="submit"
-          class="w-fit lg:ms-auto"
-        />
-      </UPageCard>
+        <template #default>
+          <UPageCard variant="naked">
+            <UFormField
+              name="name"
+              label="Name"
+              description="The name of the event."
+              required
+              class="flex max-sm:flex-col justify-between items-start gap-4"
+            >
+              <UInput
+                v-model="profile.name"
+                autocomplete="off"
+                class="min-w-xs"
+              />
+            </UFormField>
+            <USeparator />
+            <UFormField
+              name="startDate"
+              label="Start Date"
+              description="The start date of the event."
+              required
+              class="flex max-sm:flex-col justify-between items-start gap-4"
+            >
+              <UInput
+                v-model="profile.startDate"
+                type="date"
+                autocomplete="off"
+              />
+            </UFormField>
+            <USeparator />
+            <UFormField
+              name="endDate"
+              label="End Date"
+              description="The end date of the event."
+              required
+              class="flex max-sm:flex-col justify-between items-start gap-4"
+            >
+              <UInput
+                v-model="profile.endDate"
+                type="date"
+                autocomplete="off"
+              />
+            </UFormField>
+          </UPageCard>
+        </template>
 
-      <UPageCard variant="subtle">
-        <UFormField
-          name="name"
-          label="Name"
-          description="The name of the event."
-          required
-          class="flex max-sm:flex-col justify-between items-start gap-4"
-        >
-          <UInput
-            v-model="profile.name"
-            autocomplete="off"
-            class="min-w-xs"
+        <template #footer>
+          <UButton
+            form="settings"
+            label="Save changes"
+            color="neutral"
+            type="submit"
+            class="w-fit lg:ms-auto"
           />
-        </UFormField>
-        <USeparator />
-        <UFormField
-          name="startDate"
-          label="Start Date"
-          description="The start date of the event."
-          required
-          class="flex max-sm:flex-col justify-between items-start gap-4"
-        >
-          <UInput
-            v-model="profile.startDate"
-            type="date"
-            autocomplete="off"
-          />
-        </UFormField>
-        <USeparator />
-        <UFormField
-          name="endDate"
-          label="End Date"
-          description="The end date of the event."
-          required
-          class="flex max-sm:flex-col justify-between items-start gap-4"
-        >
-          <UInput
-            v-model="profile.endDate"
-            type="date"
-            autocomplete="off"
-          />
-        </UFormField>
-      </UPageCard>
+        </template>
+      </UCard>
     </UForm>
   </div>
 </template>

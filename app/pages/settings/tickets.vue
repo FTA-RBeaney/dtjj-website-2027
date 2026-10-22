@@ -35,27 +35,31 @@ const columns: TableColumn<TicketType>[] = [
 
 <template>
   <div class="flex flex-col w-full lg:max-w-2xl mx-auto">
-    <UPageCard
+    <UCard
       title="Ticket types"
       description="Create the ticket types customers will be able to purchase for this event."
-      variant="naked"
       orientation="horizontal"
       class="mb-4"
     >
-      <SettingsAddTicketTypeModal @created="refresh" />
-    </UPageCard>
-    <UTable
-      :data="ticketTypes"
-      :columns="columns"
-      class="shrink-0"
-      :ui="{
-        base: 'table-fixed border-separate border-spacing-0',
-        thead: '[&>tr]:bg-elevated/50 [&>tr]:after:content-none',
-        tbody: '[&>tr]:last:[&>td]:border-b-0',
-        th: 'py-2 first:rounded-l-lg last:rounded-r-lg border-y border-default first:border-l last:border-r',
-        td: 'border-b border-default',
-        separator: 'h-0',
-      }"
-    />
+      <template #default>
+        <UTable
+          :data="ticketTypes"
+          :columns="columns"
+          class="shrink-0"
+          :ui="{
+            base: 'table-fixed border-separate border-spacing-0',
+            thead: '[&>tr]:bg-elevated/50 [&>tr]:after:content-none',
+            tbody: '[&>tr]:last:[&>td]:border-b-0',
+            th: 'py-2 first:rounded-l-lg last:rounded-r-lg border-y border-default first:border-l last:border-r',
+            td: 'border-b border-default',
+            separator: 'h-0',
+          }"
+        />
+      </template>
+
+      <template #footer>
+        <SettingsAddTicketTypeModal @created="refresh" />
+      </template>
+    </UCard>
   </div>
 </template>

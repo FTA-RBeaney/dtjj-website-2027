@@ -2,18 +2,30 @@
 @import "@nuxt/ui";
 
 @theme {
-  --font-sans: "Bricolage Grotesque", sans-serif;
+  --font-sans: "Figtree", sans-serif;
+  /* --font-sans: "Apercu Pro", sans-serif; */
+  --color-dtjj: #fdf4ee;
 }
 
 :root {
-  --ui-radius: 0.625rem;
+  --ui-radius: 0.425rem;
 }
 
 :root,
 .light {
-  --ui-bg: var(--ui-color-neutral-50);
+  --ui-bg: var(--color-white);
   --ui-bg-muted: var(--ui-color-neutral-100);
   --ui-text-inverted: var(--ui-color-neutral-50);
+  /* the admin area's one chart hue: the main data element only (references/app-screens.md §6.4).
+     Matches ui.colors.primary's default (cyan) so the chart and the primary button read as one hue;
+     stays correct if primary is ever changed in app.config, since this is the dealt style's own value. */
+  --chart-accent: #0e7490;
+
+  /* admin shell — "framed sheet": one tinted frame behind the sidebar/topbar, the page content on an
+     inset white sheet (references/app-screens.md §3.1, §9.5). */
+  --admin-frame: #f9fbfc;
+  --admin-sheet-bg: #ffffff;
+  --admin-sheet-border: #eaeaea;
 }
 
 .dark {
@@ -23,10 +35,15 @@
   --ui-bg: var(--ui-color-neutral-900);
   --ui-bg-muted: var(--ui-color-neutral-800);
   --ui-text-inverted: var(--ui-color-neutral-900);
+  --chart-accent: #22d3ee;
+
+  --admin-frame: var(--ui-color-neutral-900);
+  --admin-sheet-bg: var(--ui-color-neutral-800);
+  --admin-sheet-border: var(--ui-color-neutral-700);
 }
 
 @layer base {
   html {
-    font-size: 14px; /* browser default is 16px */
+    font-size: 16px; /* browser default is 16px */
   }
 }

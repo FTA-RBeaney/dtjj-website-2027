@@ -17,17 +17,17 @@ const items = computed<DropdownMenuItem[][]>(() => ([[{
   label: props.user?.email,
 }], [{
   label: "Profile",
-  icon: "i-lucide-user",
+  icon: "i-ph-user",
 }, {
   label: "Billing",
-  icon: "i-lucide-credit-card",
+  icon: "i-ph-credit-card",
 }, {
   label: "Settings",
-  icon: "i-lucide-settings",
+  icon: "i-ph-gear",
   to: "/settings",
 }], [{
   label: "Theme",
-  icon: "i-lucide-palette",
+  icon: "i-ph-palette",
   children: [{
     label: "Primary",
     slot: "chip",
@@ -71,10 +71,10 @@ const items = computed<DropdownMenuItem[][]>(() => ([[{
   }],
 }, {
   label: "Appearance",
-  icon: "i-lucide-sun-moon",
+  icon: "i-ph-circle-half",
   children: [{
     label: "Light",
-    icon: "i-lucide-sun",
+    icon: "i-ph-sun",
     type: "checkbox",
     checked: colorMode.value === "light",
     onSelect(e: Event) {
@@ -84,7 +84,7 @@ const items = computed<DropdownMenuItem[][]>(() => ([[{
     },
   }, {
     label: "Dark",
-    icon: "i-lucide-moon",
+    icon: "i-ph-moon",
     type: "checkbox",
     checked: colorMode.value === "dark",
     onUpdateChecked(checked: boolean) {
@@ -98,7 +98,7 @@ const items = computed<DropdownMenuItem[][]>(() => ([[{
   }],
 }], [{
   label: "Log out",
-  icon: "i-lucide-log-out",
+  icon: "i-ph-sign-out",
 }]]));
 </script>
 
@@ -112,7 +112,7 @@ const items = computed<DropdownMenuItem[][]>(() => ([[{
       v-bind="{
         avatar,
         label: collapsed ? undefined : user?.email,
-        trailingIcon: collapsed ? undefined : 'i-lucide-chevrons-up-down',
+        trailingIcon: collapsed ? undefined : 'i-ph-caret-up-down',
       }"
       color="neutral"
       variant="ghost"

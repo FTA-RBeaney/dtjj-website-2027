@@ -2,6 +2,8 @@
 
 import "./app/lib/env";
 
+const videoJsElements = new Set(["video-player", "video-skin", "mux-video", "mux-data"]);
+
 export default defineNuxtConfig({
   modules: [
     "@nuxt/eslint",
@@ -30,6 +32,11 @@ export default defineNuxtConfig({
   eslint: {
     config: {
       standalone: false,
+    },
+  },
+  vue: {
+    compilerOptions: {
+      isCustomElement: tag => videoJsElements.has(tag),
     },
   },
 });

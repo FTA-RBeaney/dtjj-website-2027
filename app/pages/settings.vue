@@ -3,20 +3,20 @@ import type { NavigationMenuItem } from "@nuxt/ui";
 
 const links = [[{
   label: "General",
-  icon: "i-lucide-settings",
+  icon: "i-ph-gear",
   to: "/settings",
   exact: true,
 }, {
   label: "Team",
-  icon: "i-lucide-users",
+  icon: "i-ph-users",
   to: "/settings/team",
 }, {
   label: "Tickets",
-  icon: "i-lucide-ticket",
+  icon: "i-ph-ticket",
   to: "/settings/tickets",
 }, {
   label: "Discounts",
-  icon: "i-lucide-shield",
+  icon: "i-ph-shield",
   to: "/settings/discounts",
 }]] satisfies NavigationMenuItem[][];
 </script>

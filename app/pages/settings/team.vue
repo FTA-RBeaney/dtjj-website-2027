@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import type { TableColumn } from "@nuxt/ui";
-import type { Row } from "@tanstack/table-core";
+import type { TableColumn, TableRow } from "@nuxt/ui";
+import { h, resolveComponent } from "vue";
+
+const UButton = resolveComponent("UButton");
+const UBadge = resolveComponent("UBadge");
+const UDropdownMenu = resolveComponent("UDropdownMenu");
 
 const { data: team } = await useFetch("/api/team");
+const toast = useToast();
 
-type TeamMember = {
-  id: number;
-  email: string;
-  role: string;
-};
+type TeamMember = NonNullable<typeof team.value>[number];
 
 const columns: TableColumn<TeamMember>[] = [
   {
@@ -21,9 +22,9 @@ const columns: TableColumn<TeamMember>[] = [
     header: "Role",
     cell: ({ row }) => {
       const color = {
-        paid: "success" as const,
-        failed: "error" as const,
-        refunded: "neutral" as const,
+        admin: "success" as const,
+        member: "error" as const,
+        guest: "neutral" as const,
       }[row.getValue("role") as string];
 
       return h(UBadge, { class: "capitalize", variant: "subtle", color }, () =>
@@ -46,7 +47,7 @@ const columns: TableColumn<TeamMember>[] = [
           },
           () =>
             h(UButton, {
-              icon: "i-lucide-ellipsis-vertical",
+              icon: "i-ph-dots-three-vertical",
               color: "neutral",
               variant: "ghost",
               class: "ml-auto",
@@ -57,7 +58,7 @@ const columns: TableColumn<TeamMember>[] = [
   },
 ];
 
-function getRowItems(row: Row<TeamMember>) {
+function getRowItems(row: TableRow<TeamMember>) {
   return [
     {
       type: "label",
@@ -66,12 +67,10 @@ function getRowItems(row: Row<TeamMember>) {
     {
       label: "Copy user ID",
       onSelect() {
-        copy(row.original.id);
-
         toast.add({
-          title: "User ID copied to clipboard!",
+          title: `User ID for ${row.getValue("email")} copied to clipboard!`,
           color: "success",
-          icon: "i-lucide-circle-check",
+          icon: "i-ph-check-circle",
         });
       },
     },
@@ -90,25 +89,27 @@ function getRowItems(row: Row<TeamMember>) {
 
 <template>
   <div class="flex flex-col  w-full lg:max-w-2xl mx-auto">
-    <UPageCard
+    <UCard
       title="Team"
       description="Manage your team members and their roles."
-      variant="naked"
       orientation="horizontal"
       class="mb-4"
-    />
-    <UTable
-      :data="team"
-      :columns="columns"
-      class="shrink-0"
-      :ui="{
-        base: 'table-fixed border-separate border-spacing-0',
-        thead: '[&>tr]:bg-elevated/50 [&>tr]:after:content-none',
-        tbody: '[&>tr]:last:[&>td]:border-b-0',
-        th: 'py-2 first:rounded-l-lg last:rounded-r-lg border-y border-default first:border-l last:border-r',
-        td: 'border-b border-default',
-        separator: 'h-0',
-      }"
-    />
+    >
+      <template #default>
+        <UTable
+          :data="team"
+          :columns="columns"
+          class="shrink-0"
+          :ui="{
+            base: 'table-fixed border-separate border-spacing-0',
+            thead: '[&>tr]:bg-elevated/50 [&>tr]:after:content-none',
+            tbody: '[&>tr]:last:[&>td]:border-b-0',
+            th: 'py-2 first:rounded-l-lg last:rounded-r-lg border-y border-default first:border-l last:border-r',
+            td: 'border-b border-default',
+            separator: 'h-0',
+          }"
+        />
+      </template>
+    </UCard>
   </div>
 </template>

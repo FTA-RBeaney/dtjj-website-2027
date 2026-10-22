@@ -10,31 +10,23 @@ const { data: events } = await useFetch("/api/events"); ;
 const open = ref(false);
 
 const links = [[{
-  label: "Home",
-  icon: "i-lucide-house",
-  to: "/",
+  label: "Overview",
+  icon: "i-ph-house",
+  to: "/admin",
   onSelect: () => {
     open.value = false;
   },
 }, {
-  label: "Inbox",
-  icon: "i-lucide-inbox",
-  to: "/inbox",
-  badge: "4",
-  onSelect: () => {
-    open.value = false;
-  },
-}, {
-  label: "Customers",
-  icon: "i-lucide-users",
-  to: "/customers",
+  label: "Attendees",
+  icon: "i-ph-users",
+  to: "/admin/attendees",
   onSelect: () => {
     open.value = false;
   },
 }, {
   label: "Settings",
   to: "/settings",
-  icon: "i-lucide-settings",
+  icon: "i-ph-gear",
   defaultOpen: true,
   type: "trigger",
   children: [{
@@ -53,12 +45,6 @@ const links = [[{
   }, {
     label: "Tickets",
     to: "/settings/tickets",
-    onSelect: () => {
-      open.value = false;
-    },
-  }, {
-    label: "Discounts",
-    to: "/settings/discounts",
     onSelect: () => {
       open.value = false;
     },
@@ -117,14 +103,14 @@ onMounted(async () => {
 </script>
 
 <template>
-  <UDashboardGroup unit="rem">
+  <UDashboardGroup unit="rem" class="overflow-visible bg-(--admin-frame)">
     <UDashboardSidebar
       id="default"
       v-model:open="open"
       collapsible
       resizable
-      class="bg-elevated/25"
-      :ui="{ footer: 'lg:border-t lg:border-default' }"
+      class="bg-transparent border-none"
+      :ui="{ footer: 'lg:border-t lg:border-default/60' }"
     >
       <template #header="{ collapsed }">
         <TeamsMenu
@@ -162,7 +148,7 @@ onMounted(async () => {
 
     <UDashboardSearch :groups="groups" />
 
-    <div class="w-100 flex-grow">
+    <div class="flex flex-1 min-w-0 min-h-0 py-4">
       <slot />
     </div>
 

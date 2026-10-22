@@ -52,7 +52,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     title="New ticket type"
     description="Add a new ticket type for this event"
   >
-    <UButton label="New ticket type" icon="i-lucide-plus" />
+    <UButton label="New ticket type" icon="i-ph-plus" />
 
     <template #body>
       <UForm
