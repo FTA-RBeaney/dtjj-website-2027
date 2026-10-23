@@ -1,15 +1,27 @@
 <script setup lang="ts">
+import type { VariantType } from "motion-v";
+import { motion, useReducedMotion } from "motion-v";
+import "@videojs/html/media/mux-video";
+
+type Variants = Record<string, VariantType>;
+
+/**
+ * Home page hero, animated with Motion (motion-v).
+ *
+ * The entrance is one orchestrated sequence: the logo drops in and sways like a
+ * hanging sign, WELCOME pops in letter by letter (parent-driven stagger), and the
+ * sub-line + scroll cue fade up after. All motion collapses to a static layout when
+ * the user prefers reduced motion. The sections below use scroll-triggered reveals.
+ */
+
 definePageMeta({
   layout: "website",
 });
 
-// SEO Meta Tags
 useSeoMeta({
   title: "Downtown Jazz Jam | London Swing Dance Festival, 1st - 4th May 2026",
   description:
     "Downtown Jazz Jam is a London Swing Dance festival that celebrates the vibrant culture of swing dancing through live music, dance workshops, and social events. Join us for an inclusive celebration of jazz dance.",
-  keywords:
-    "swing dance, London, jazz dance, Lindy Hop, dance festival, dance workshops, live music, social dancing, UK swing dance",
   author: "Downtown Jazz Jam",
   robots: "index, follow",
 
@@ -36,7 +48,6 @@ useSeoMeta({
   twitterImageAlt: "Downtown Jazz Jam - London Swing Dance Festival",
 });
 
-// Additional head elements
 useHead({
   link: [{ rel: "canonical", href: "https://downtownjazzjam.uk" }],
   script: [
@@ -66,88 +77,353 @@ useHead({
           "url": "https://downtownjazzjam.uk",
         },
         "performer": [
-          {
-            "@type": "Person",
-            "name": "Skye Humphries",
-          },
-          {
-            "@type": "Person",
-            "name": "Trisha",
-          },
-          {
-            "@type": "Person",
-            "name": "Junior Laniyan",
-          },
-          {
-            "@type": "Person",
-            "name": "Kanini",
-          },
+          { "@type": "Person", "name": "Skye Humphries" },
+          { "@type": "Person", "name": "Trisha" },
+          { "@type": "Person", "name": "Junior Laniyan" },
+          { "@type": "Person", "name": "Kanini" },
         ],
       }),
     },
   ],
 });
 
-// Preload main images on this page
-// const { imagesLoaded } = useImagePreload([
-//   Logo,
-// ]);
+const TITLE = "WELCOME";
+const LIVEMUSIC = "MUSIC";
+const CLASSES = "CLASSES";
+const AFTERPARTIES = "AFTERPARTIES";
 
-const imagesLoaded = true;
+const reduce = useReducedMotion();
+
+// Parent staggers each letter span; child defines the per-letter pop.
+const letters = computed<Variants>(() => ({
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: reduce.value ? 0 : 0.07, delayChildren: reduce.value ? 0 : 0.5 },
+  },
+}));
+
+const letter = computed<Variants>(() =>
+  reduce.value
+    ? { hidden: { opacity: 1 }, visible: { opacity: 1 } }
+    : {
+        hidden: { opacity: 0, y: 40, rotate: 6 },
+        visible: {
+          opacity: 1,
+          y: 0,
+          rotate: 0,
+          transition: { type: "spring", bounce: 0.5, duration: 0.6 },
+        },
+      },
+);
+
+const cardVariants: Variants = {
+  offscreen: { opacity: 0, y: 60 },
+  onscreen: {
+    opacity: 1,
+    y: 0,
+    transition: { type: "spring", bounce: 0.3, duration: 0.8 },
+  },
+};
+
+// John Bubbles slides in from the right when his section scrolls into view.
+const slideIn = computed<Variants>(() =>
+  reduce.value
+    ? { hidden: { x: 0 }, visible: { x: 0 } }
+    : {
+        hidden: { x: 600 },
+        visible: { x: 0, transition: { duration: 0.8, ease: "easeOut" } },
+      },
+);
 </script>
 
 <template>
-  <div class="py-10">
-    <!-- Show content only after images are loaded -->
-    <div
-      v-if="!imagesLoaded"
-      class="flex min-h-screen items-center justify-center"
-    >
-      <div class="text-center">
-        <div
-          class="mx-auto h-12 w-12 animate-spin rounded-full border-4 border-gray-300 border-t-black"
+  <div>
+    <section class="hero z-5 w-full">
+      <!-- Background video; .hero__media-wrap adds the slow ken-burns zoom and cover fit -->
+      <div class="hero__media-wrap" aria-hidden="true">
+        <mux-video
+          src="https://stream.mux.com/dODcKqr7S6C700uLo5fOBZ7MlIgMz01TEmWH02E1mnyVHE.m3u8"
+          autoplay
+          muted
+          loop
+          playsinline
+          crossorigin="anonymous"
         />
       </div>
-    </div>
 
-    <div v-show="imagesLoaded">
-      <NewsletterForm />
-      <UiContainer class="gap-8 py-7 md:py-14">
-        <div class="mx-auto max-w-4xl space-y-4 text-center">
-          <h1 class="mt-0 mb-4 text-7xl font-bold tracking-wider">
-            Downtown Jazz Jam 2026 is officially over!
-          </h1>
-          <h2 class="text-3xl">
-            Thank you to everyone who came and made it so special!
-          </h2>
-          <p class="text-lg">
-            We are currently planning the 2027 edition, but in the meantime
-            check out the video from 2026:
-          </p>
-        </div>
-      </UiContainer>
+      <!-- Contrast scrim so the text stays legible over any frame -->
+      <div class="marquee__scrim" />
 
-      <div class="mx-auto max-w-[90%] overflow-hidden rounded-lg bg-black my-10">
-        <Player poster="https://downtownjazzjam.uk/img/finances.jpg" content-title="">
-          <mux-video
-            src="https://stream.mux.com/dODcKqr7S6C700uLo5fOBZ7MlIgMz01TEmWH02E1mnyVHE.m3u8"
-            playsinline
-            crossorigin="anonymous"
-          />
-          <!--
-        Mux Data monitors playback quality and is selected by default
-        for Mux video and audio sources.
-      -->
-          <mux-data />
-        </Player>
+      <!-- Foreground content -->
+      <div class="absolute inset-0 z-10 flex flex-col items-center justify-center px-4 text-center">
+        <!-- Logo: drops in (outer), then sways from the top (inner) -->
+        <motion.div
+          :initial="reduce ? false : { opacity: 0, y: -28, scale: 0.85 }"
+          :animate="{ opacity: 1, y: 0, scale: 1 }"
+          :transition="{ duration: 0.7, ease: [0.34, 1.56, 0.64, 1] }"
+        >
+          <motion.div
+            :style="{ transformOrigin: 'top' }"
+            :animate="reduce ? undefined : { rotate: [-2, 2] }"
+            :transition="reduce ? undefined : { duration: 4, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut', delay: 0.9 }"
+          >
+            <NuxtImg
+              src="/dtjj-logo.webp"
+              alt="Downtown Jazz Jam"
+              width="300"
+              height="300"
+              preload
+              fetchpriority="high"
+              class="drop-shadow-2xl"
+            />
+          </motion.div>
+        </motion.div>
+
+        <!-- WELCOME: parent stagger reveals each letter -->
+        <motion.h1
+          :aria-label="TITLE"
+          :variants="letters"
+          initial="hidden"
+          animate="visible"
+          class="mt-2 max-w-4xl text-7xl font-bold tracking-tight text-white uppercase drop-shadow-lg sm:text-8xl lg:text-9xl"
+        >
+          <motion.span
+            v-for="(char, i) in TITLE"
+            :key="i"
+            aria-hidden="true"
+            :variants="letter"
+            class="inline-block"
+          >
+            {{ char }}
+          </motion.span>
+        </motion.h1>
+
+        <!-- Handwritten sub-line fades up once the title lands -->
+        <motion.p
+          class="font-lazy mt-1 text-3xl text-white/90 sm:text-4xl"
+          :initial="reduce ? false : { opacity: 0, y: 20 }"
+          :animate="{ opacity: 1, y: 0 }"
+          :transition="{ duration: 0.8, delay: reduce ? 0 : 1.25, ease: 'easeOut' }"
+        >
+          to the jam
+        </motion.p>
       </div>
-    </div>
+
+      <!-- Scroll cue -->
+      <motion.div
+        class="absolute inset-x-0 bottom-8 z-10 flex justify-center"
+        :initial="reduce ? false : { opacity: 0, y: 20 }"
+        :animate="{ opacity: 1, y: 0 }"
+        :transition="{ duration: 0.8, delay: reduce ? 0 : 1.8 }"
+      >
+        <div class="flex h-10 w-6 items-start justify-center rounded-full border-2 border-white/70 p-1.5">
+          <motion.span
+            class="h-2 w-1 rounded-full bg-white/80"
+            :animate="reduce ? undefined : { y: [0, 6, 0] }"
+            :transition="reduce ? undefined : { duration: 1.5, repeat: Infinity, ease: 'easeInOut' }"
+          />
+        </div>
+      </motion.div>
+    </section>
+
+    <section class="mx-auto flex h-screen max-w-2xl flex-col items-center justify-center px-6 py-24 text-center sm:py-32">
+      <h2 class="font-lazy text-2xl font-bold text-black">
+        Welcome to Downtown Jazz Jam!
+      </h2>
+      <p class="font-lazy mt-4 text-2xl text-black/80">
+        Downtown Jazz Jam is a celebration of jazz music and dance, bringing together musicians, dancers,
+        and enthusiasts from all over the world. Join us for an unforgettable experience filled with live
+        performances, classes, and afterparties.
+      </p>
+    </section>
+
+    <section class="relative z-5 h-[90vh] w-full overflow-hidden">
+      <motion.div
+        :initial="reduce ? false : { opacity: 0, scale: 1 }"
+        :animate="{ opacity: 1, scale: 1 }"
+        :transition="{ duration: 0.8, ease: 'easeOut' }"
+      >
+        <NuxtImg
+          src="/images/band-1.jpg"
+          alt="Downtown Jazz Jam"
+          class="absolute inset-0 z-1 h-full w-full object-cover"
+          loading="lazy"
+        />
+      </motion.div>
+      <div class="absolute inset-0 z-2 bg-linear-to-b from-black/30 via-black/10 to-black/60" />
+
+      <!-- Foreground content -->
+      <div class="absolute inset-0 z-10 flex flex-col items-center justify-center px-4 text-center">
+        <motion.p
+          class="font-lazy mt-1 max-w-2xl text-3xl text-white"
+          initial="offscreen"
+          while-in-view="onscreen"
+          :in-view-options="{ amount: 0.8, once: true }"
+          :variants="cardVariants"
+        >
+          live every night
+        </motion.p>
+        <motion.h1
+          :aria-label="LIVEMUSIC"
+          :variants="letters"
+          initial="hidden"
+          while-in-view="visible"
+          :in-view-options="{ once: true, amount: 0.3 }"
+          class="mt-2 max-w-4xl text-7xl font-bold tracking-tight text-white uppercase drop-shadow-lg sm:text-8xl lg:text-9xl"
+        >
+          <motion.span
+            v-for="(char, i) in LIVEMUSIC"
+            :key="i"
+            aria-hidden="true"
+            :variants="letter"
+            class="inline-block"
+          >
+            {{ char }}
+          </motion.span>
+        </motion.h1>
+        <motion.p
+          class="font-lazy mt-1 max-w-2xl text-3xl text-white/90"
+          initial="offscreen"
+          while-in-view="onscreen"
+          :in-view-options="{ amount: 0.3, once: true }"
+          :variants="cardVariants"
+        >
+          Saturday and Sunday evening parties with Duncan Hemstock and his band featuring Sara Oschlag,
+          plus sets that keep the floor moving long after midnight.
+        </motion.p>
+      </div>
+    </section>
+
+    <!-- The section (not the off-screen image) is the in-view trigger: the image starts
+         translated outside this overflow-hidden box, so it can never be "in view" itself -->
+    <motion.section
+      class="relative z-5 h-[90vh] w-full overflow-hidden"
+      initial="hidden"
+      while-in-view="visible"
+      :in-view-options="{ amount: 0.5, once: true }"
+    >
+      <motion.div
+        class="h-full"
+        :variants="slideIn"
+      >
+        <!-- width/height must keep the photo's 1248:1527 ratio, or the image server crops it.
+             Eager so it has loaded before the slide plays (lazy made it pop in at the end). -->
+        <NuxtImg
+          src="/images/john-w-bubbles.png"
+          alt="Downtown Jazz Jam"
+          width="600"
+          height="734"
+          loading="eager"
+          class="absolute right-[-10%] bottom-[-25%] z-1 h-auto w-150 max-w-none"
+        />
+      </motion.div>
+
+      <!-- Foreground content -->
+      <div class="absolute inset-0 z-10 flex flex-col items-center justify-center px-4 text-center">
+        <motion.p
+          class="font-lazy mt-1 max-w-2xl text-3xl text-black"
+          initial="offscreen"
+          while-in-view="onscreen"
+          :in-view-options="{ amount: 0.8, once: true }"
+          :variants="cardVariants"
+        >
+          inspired by the icons
+        </motion.p>
+        <motion.h1
+          :aria-label="CLASSES"
+          :variants="letters"
+          initial="hidden"
+          while-in-view="visible"
+          :in-view-options="{ once: true, amount: 0.3 }"
+          class="mt-2 max-w-4xl text-7xl font-bold tracking-tight text-black uppercase drop-shadow-lg sm:text-8xl lg:text-9xl"
+        >
+          <motion.span
+            v-for="(char, i) in CLASSES"
+            :key="i"
+            aria-hidden="true"
+            :variants="letter"
+            class="inline-block"
+          >
+            {{ char }}
+          </motion.span>
+        </motion.h1>
+        <motion.p
+          class="font-lazy mt-1 max-w-2xl text-3xl text-black"
+          initial="offscreen"
+          while-in-view="onscreen"
+          :in-view-options="{ amount: 0.3, once: true }"
+          :variants="cardVariants"
+        >
+          Streams shaped by the jazz dance icons — Dawn Hampton, Mabel Lee, John Bubbles and more. Not
+          levelled by ability, but by movement, impact and influence.
+        </motion.p>
+      </div>
+    </motion.section>
+
+    <section class="relative z-5 h-[90vh] w-full overflow-hidden">
+      <motion.div
+        :initial="reduce ? false : { opacity: 0, scale: 1 }"
+        :animate="{ opacity: 1, scale: 1 }"
+        :transition="{ duration: 0.8, ease: 'easeOut' }"
+      >
+        <NuxtImg
+          src="/images/afterparty.jpg"
+          alt="Downtown Jazz Jam"
+          class="absolute inset-0 z-1 h-full w-full object-cover"
+          loading="lazy"
+        />
+      </motion.div>
+      <div class="absolute inset-0 z-2 bg-linear-to-b from-black/30 via-black/10 to-black/60" />
+
+      <!-- Foreground content -->
+      <div class="absolute inset-0 z-10 flex flex-col items-center justify-center px-4 text-center">
+        <motion.p
+          class="font-lazy mt-1 max-w-2xl text-3xl text-white"
+          initial="offscreen"
+          while-in-view="onscreen"
+          :in-view-options="{ amount: 0.8, once: true }"
+          :variants="cardVariants"
+        >
+          late-night celebrations
+        </motion.p>
+        <motion.h1
+          :aria-label="AFTERPARTIES"
+          :variants="letters"
+          initial="hidden"
+          while-in-view="visible"
+          :in-view-options="{ once: true, amount: 0.3 }"
+          class="mt-2 max-w-4xl text-7xl font-bold tracking-tight text-white uppercase drop-shadow-lg sm:text-8xl lg:text-9xl"
+        >
+          <motion.span
+            v-for="(char, i) in AFTERPARTIES"
+            :key="i"
+            aria-hidden="true"
+            :variants="letter"
+            class="inline-block"
+          >
+            {{ char }}
+          </motion.span>
+        </motion.h1>
+        <motion.p
+          class="font-lazy mt-1 max-w-2xl text-3xl text-white/90"
+          initial="offscreen"
+          while-in-view="onscreen"
+          :in-view-options="{ amount: 0.3, once: true }"
+          :variants="cardVariants"
+        >
+          The weekend ends with a night of dancing and drinking in the evening, with the occasional
+          late-night jam.
+        </motion.p>
+      </div>
+
+      <div class="fixed right-10 bottom-10 z-50">
+        <NuxtLink
+          to="/admin"
+          class="rounded-lg bg-[#c8951a] px-6 py-3 text-white shadow-lg transition-colors hover:bg-[#b07f17]"
+        >
+          Admin
+        </NuxtLink>
+      </div>
+    </section>
   </div>
 </template>
-
-<style>
-media-poster::part(image),
-media-poster img {
-  object-fit: cover;
-}
-</style>

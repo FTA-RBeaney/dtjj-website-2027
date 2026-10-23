@@ -1,18 +1,17 @@
 <script setup lang="ts">
-type HeaderVariant = "primary" | "secondary";
-
-const { title, subtitle, variant = "secondary" } = defineProps<{
+defineProps<{
   title: string;
   subtitle?: string;
-  variant?: HeaderVariant;
 }>();
 </script>
 
 <template>
-  <header>
-    <h1>{{ title }}</h1>
-    <p v-if="subtitle" :class="variant === 'secondary' ? 'text-muted' : 'text-green-500'">
-      {{ subtitle }}
-    </p>
+  <header class="page-head">
+    <div class="container">
+      <h1>{{ title }}</h1>
+      <p v-if="subtitle" class="lead">
+        {{ subtitle }}
+      </p>
+    </div>
   </header>
 </template>

@@ -1,9 +1,10 @@
 export default defineAppConfig({
   ui: {
     colors: {
-      // Admin default direction (framed sheet): a teal-cyan accent. Still fully live-themeable —
+      // Admin default direction (framed sheet): an amber accent, tying back to the public site's
+      // ticket-stub orange. Still fully live-themeable —
       // UserMenu's "Theme" picker reassigns appConfig.ui.colors.primary to any Tailwind colour.
-      primary: "cyan",
+      primary: "amber",
       neutral: "gray",
     },
     // "Framed sheet" admin shell (references/app-screens.md §3.1): the panel sits as a white sheet

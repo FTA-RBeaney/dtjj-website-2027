@@ -18,7 +18,7 @@ const percent = computed(() => Math.round(ratio.value * 100));
       <span class="text-muted whitespace-nowrap">{{ formatMoney(raisedInPence / 100) }} of {{ formatMoney(plannedInPence / 100) }} · {{ percent }}%</span>
     </div>
     <div class="mt-2 h-2 rounded-full bg-muted overflow-hidden">
-      <div class="h-full rounded-full" :style="{ width: `${ratio * 100}%`, background: 'var(--chart-accent)' }" />
+      <div class="h-full rounded-full" :style="{ width: `${ratio * 100}%`, background: 'var(--ui-primary)' }" />
     </div>
   </div>
 </template>

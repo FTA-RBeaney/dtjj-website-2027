@@ -27,6 +27,22 @@ export default defineNuxtConfig({
     "/": { prerender: true },
   },
 
+  supabase: {
+    redirectOptions: {
+      login: "/login",
+      callback: "/confirm",
+      exclude: ["/", "/about", "/faq", "/contact", "/signup"],
+    },
+  },
+
+  googleFonts: {
+    families: {
+      "Archivo": [400, 600, 700, 800],
+      "Instrument+Serif": [400],
+    },
+    display: "swap",
+  },
+
   compatibilityDate: "2026-06-30",
 
   eslint: {

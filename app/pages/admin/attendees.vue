@@ -49,7 +49,7 @@ const formatDate = (iso: string) => new Date(iso).toLocaleDateString("en-GB", { 
             class="rounded-lg p-3 text-left transition-colors"
             :class="selectedStatus === count.key ? '' : 'ring ring-default bg-default hover:bg-elevated/50'"
             :style="selectedStatus === count.key
-              ? { boxShadow: 'inset 0 0 0 1.5px var(--chart-accent)', background: 'color-mix(in srgb, var(--chart-accent) 10%, transparent)' }
+              ? { boxShadow: 'inset 0 0 0 1.5px var(--ui-primary)', background: 'color-mix(in srgb, var(--ui-primary) 10%, transparent)' }
               : undefined"
             @click="selectedStatus = count.key"
           >

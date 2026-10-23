@@ -13,9 +13,8 @@ defineProps<{
   <video-player :poster="poster">
     <video-skin>
       <slot />
-      <template #poster>
-        <img alt="">
-      </template>
+      <!-- eslint-disable-next-line vue/no-deprecated-slot-attribute -- video-skin is a native custom element (isCustomElement), not a Vue component: this is the DOM "slot" attribute, not Vue 2 slot syntax -->
+      <img slot="poster" alt="">
     </video-skin>
   </video-player>
 </template>

@@ -41,6 +41,13 @@ export default withNuxt(
   }),
   betterTailwindcss.configs["correctness-error"],
   {
+    rules: {
+      // the public site's own BEM-style component classes (nav, ticket, split, etc. — see
+      // app/assets/css/website.css), not Tailwind utilities, so this rule never sees them as known.
+      "better-tailwindcss/no-unknown-classes": ["error", {
+        ignore: ["^(site|btn|split|recap|band|statement|rows|page-head|lead|form|field|prose|section|hero|signup|card|marquee|welcome-section)([-_].*)?$"],
+      }],
+    },
     settings: {
       "better-tailwindcss": {
         entryPoint: "app/assets/css/main.css",

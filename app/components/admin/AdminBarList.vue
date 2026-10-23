@@ -15,7 +15,7 @@ const max = computed(() => Math.max(...props.rows.map(r => r.value), 1));
     >
       <span class="w-8 shrink-0 text-sm text-muted">{{ row.label }}</span>
       <div class="flex-1 h-2.5 rounded-full bg-muted overflow-hidden">
-        <div class="h-full rounded-full bg-default" :style="{ width: `${(row.value / max) * 100}%`, background: 'var(--ui-text-dimmed)' }" />
+        <div class="h-full rounded-full bg-default" :style="{ width: `${(row.value / max) * 100}%`, background: 'var(--ui-primary)' }" />
       </div>
       <span class="w-6 shrink-0 text-sm text-right tabular-nums">{{ row.value }}</span>
     </div>

@@ -1,7 +1,9 @@
 <template>
-  <div class="bg-dtjj min-h-screen">
-    <div class="max-w-7xl mx-auto">
+  <div class="site min-h-screen">
+    <WebsiteNav />
+    <main>
       <slot />
-    </div>
+    </main>
+    <WebsiteFooter />
   </div>
 </template>

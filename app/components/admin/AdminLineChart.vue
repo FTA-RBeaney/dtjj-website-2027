@@ -7,7 +7,7 @@ const props = withDefaults(defineProps<{
   height?: number;
 }>(), {
   format: (value: number) => String(Math.round(value)),
-  color: "var(--chart-accent)",
+  color: "var(--ui-primary)",
   height: 220,
 });
 

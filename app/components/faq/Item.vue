@@ -7,12 +7,6 @@ const { item } = defineProps<{
 </script>
 
 <template>
-  <div class="flex flex-col gap-4">
-    <h2 class="text-2xl font-semibold">
-      {{ item.question }}
-    </h2>
-    <p class="text-muted">
-      {{ item.answer }}
-    </p>
-  </div>
+  <h3>{{ item.question }}</h3>
+  <p>{{ item.answer }}</p>
 </template>
