@@ -1,4 +1,4 @@
-import { NewsletterSchema } from "../../shared/schemas/newsletter";
+import { NewsletterSchema } from "#shared/schemas/newsletter";
 import { syncContactToBrevo } from "../utils/brevo";
 
 export default defineEventHandler(async (event) => {

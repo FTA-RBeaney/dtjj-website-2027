@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { FormSubmitEvent } from "@nuxt/ui";
-import type { Newsletter } from "../../shared/schemas/newsletter";
-import { NewsletterSchema } from "../../shared/schemas/newsletter";
+import type { Newsletter } from "#shared/schemas/newsletter";
+import { NewsletterSchema } from "#shared/schemas/newsletter";
 
 const toast = useToast();
 

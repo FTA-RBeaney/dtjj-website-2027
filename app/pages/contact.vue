@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { FormSubmitEvent } from "@nuxt/ui";
-import type { Contact } from "../../shared/schemas/contact";
-import { contactSchema } from "../../shared/schemas/contact";
+import type { Contact } from "#shared/schemas/contact";
+import { contactSchema } from "#shared/schemas/contact";
 
 definePageMeta({
   layout: "website",
