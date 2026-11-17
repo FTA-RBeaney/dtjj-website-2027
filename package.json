@@ -27,7 +27,7 @@
     "@nuxt/ui": "^4.11.3",
     "@nuxtjs/google-fonts": "3.2.0",
     "@nuxtjs/supabase": "2.0.10",
-    "@tanstack/vue-table": "^9.3.1",
+    "@tanstack/vue-table": "^8.21.3",
     "@videojs/html": "10.1.0",
     "@videojs/mux-data": "10.1.0",
     "@videojs/mux-video": "10.1.0",

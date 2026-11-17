@@ -1,4 +1,12 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["github>nuxt/renovate-config-nuxt"]
+  "extends": ["github>nuxt/renovate-config-nuxt"],
+  "packageRules": [
+    {
+      "description": "Nuxt UI's <UTable> needs v8; stay on v8 until Nuxt UI supports v9",
+      "matchPackageNames": ["@tanstack/vue-table"],
+      "matchUpdateTypes": ["major"],
+      "enabled": false
+    }
+  ]
 }
