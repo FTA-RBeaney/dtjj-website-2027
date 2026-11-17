@@ -93,7 +93,7 @@ BREVO_SMTP_USER=<Brevo SMTP login>   # used by supabase/config.toml for auth ema
 BREVO_SMTP_KEY=<Brevo SMTP key>
 ```
 
-`DATABASE_URL` is checked by Zod in `lib/env.ts`. If it's missing, the app and drizzle-kit fail straight away with a "Missing required values in .env" error.
+`DATABASE_URL` is checked by Zod in `lib/env.ts` the first time the database is used. If it's missing, the first DB query (or drizzle-kit) fails with a "Missing required values in .env" error.
 
 ### 4. Run the database migrations
 

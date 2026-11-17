@@ -8,7 +8,15 @@ const EnvSchema = z.object({
 
 export type EnvSchema = z.infer<typeof EnvSchema>;
 
-tryParseEnv(EnvSchema);
+let env: EnvSchema | undefined;
 
-// eslint-disable-next-line node/no-process-env
-export default EnvSchema.parse(process.env);
+// Validated on first call, not at import: on Cloudflare Workers the env vars
+// aren't available while the script is loaded (including the deploy-time startup check).
+export default function getEnv(): EnvSchema {
+  if (!env) {
+    tryParseEnv(EnvSchema);
+    // eslint-disable-next-line node/no-process-env
+    env = EnvSchema.parse(process.env);
+  }
+  return env;
+}
