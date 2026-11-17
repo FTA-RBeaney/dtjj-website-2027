@@ -1,8 +1,8 @@
 import * as z from "zod";
 
-export const newsletterSchema = z.object({
+export const NewsletterSchema = z.object({
   name: z.string().min(2, "Too short"),
   email: z.string().email("Invalid email"),
 });
 
-export type Newsletter = z.output<typeof newsletterSchema>;
+export type Newsletter = z.output<typeof NewsletterSchema>;

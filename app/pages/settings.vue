@@ -18,6 +18,10 @@ const links = [[{
   label: "Discounts",
   icon: "i-ph-shield",
   to: "/settings/discounts",
+}, {
+  label: "FAQs",
+  icon: "i-ph-question",
+  to: "/settings/faqs",
 }]] satisfies NavigationMenuItem[][];
 </script>
 

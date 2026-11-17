@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { FormSubmitEvent } from "@nuxt/ui";
 import type { Newsletter } from "../../shared/schemas/newsletter";
-import { newsletterSchema } from "../../shared/schemas/newsletter";
+import { NewsletterSchema } from "../../shared/schemas/newsletter";
 
 const toast = useToast();
 
@@ -11,6 +11,17 @@ const formState = reactive<Partial<Newsletter>>({
 });
 
 async function onSubmit(event: FormSubmitEvent<Newsletter>) {
+  const result = NewsletterSchema.safeParse(event.data);
+
+  if (!result.success) {
+    toast.add({
+      title: "Newsletter Sign Up",
+      description: "Please check your input.",
+      color: "error",
+    });
+    return;
+  }
+
   await $fetch("/api/newsletter", { method: "POST", body: event.data });
 
   toast.add({
@@ -30,7 +41,7 @@ async function onSubmit(event: FormSubmitEvent<Newsletter>) {
       One email when tickets and the lineup for the next edition are ready. No spam, no selling your details on.
     </p>
     <UForm
-      :schema="newsletterSchema"
+      :schema="NewsletterSchema"
       :state="formState"
       @submit="onSubmit"
     >

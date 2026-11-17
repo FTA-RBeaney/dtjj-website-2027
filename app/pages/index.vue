@@ -5,15 +5,6 @@ import "@videojs/html/media/mux-video";
 
 type Variants = Record<string, VariantType>;
 
-/**
- * Home page hero, animated with Motion (motion-v).
- *
- * The entrance is one orchestrated sequence: the logo drops in and sways like a
- * hanging sign, WELCOME pops in letter by letter (parent-driven stagger), and the
- * sub-line + scroll cue fade up after. All motion collapses to a static layout when
- * the user prefers reduced motion. The sections below use scroll-triggered reveals.
- */
-
 definePageMeta({
   layout: "website",
 });
@@ -91,6 +82,7 @@ const TITLE = "WELCOME";
 const LIVEMUSIC = "MUSIC";
 const CLASSES = "CLASSES";
 const AFTERPARTIES = "AFTERPARTIES";
+const JAZZJAM = "JAZZ JAM";
 
 const reduce = useReducedMotion();
 
@@ -138,7 +130,31 @@ const slideIn = computed<Variants>(() =>
 
 <template>
   <div>
-    <section class="hero z-5 w-full">
+    <section class="hero z-5 w-full relative">
+      <svg
+        aria-hidden="true"
+        focusable="false"
+        viewBox="0 0 1440 100"
+        preserveAspectRatio="none"
+        xmlns="http://www.w3.org/2000/svg"
+        class="video-splat-top"
+      >
+        <path
+          d="M0,0 H1440 V58 C1396.7,52.7 1265,21.7 1180,26 C1095,30.3 1010,82.7 930,84 C850,85.3 776.7,36 700,34 C623.3,32 551.7,74.7 470,72 C388.3,69.3 288.3,22.3 210,18 C131.7,13.7 35,41.3 0,46 Z"
+        />
+      </svg>
+      <svg
+        aria-hidden="true"
+        focusable="false"
+        viewBox="0 0 1440 100"
+        preserveAspectRatio="none"
+        xmlns="http://www.w3.org/2000/svg"
+        class="video-splat-bottom"
+      >
+        <path
+          d="M0,0 H1440 V58 C1396.7,52.7 1265,21.7 1180,26 C1095,30.3 1010,82.7 930,84 C850,85.3 776.7,36 700,34 C623.3,32 551.7,74.7 470,72 C388.3,69.3 288.3,22.3 210,18 C131.7,13.7 35,41.3 0,46 Z"
+        />
+      </svg>
       <!-- Background video; .hero__media-wrap adds the slow ken-burns zoom and cover fit -->
       <div class="hero__media-wrap" aria-hidden="true">
         <mux-video
@@ -425,5 +441,90 @@ const slideIn = computed<Variants>(() =>
         </NuxtLink>
       </div>
     </section>
+
+    <motion.section
+      class="relative z-5 h-[90vh] w-full overflow-hidden"
+      initial="hidden"
+      while-in-view="visible"
+      :in-view-options="{ amount: 0.5, once: true }"
+    >
+      <div class="absolute inset-0 z-10 flex flex-col items-center justify-center px-4 text-center">
+        <motion.p
+          class="font-lazy mt-1 max-w-2xl text-3xl text-black"
+          initial="offscreen"
+          while-in-view="onscreen"
+          :in-view-options="{ amount: 0.8, once: true }"
+          :variants="cardVariants"
+        >
+          a focus on the music
+        </motion.p>
+        <motion.h1
+          :aria-label="JAZZJAM"
+          :variants="letters"
+          initial="hidden"
+          while-in-view="visible"
+          :in-view-options="{ once: true, amount: 0.3 }"
+          class="mt-2 max-w-4xl text-7xl font-bold tracking-tight text-black uppercase drop-shadow-lg sm:text-8xl lg:text-9xl"
+        >
+          <motion.span
+            v-for="(char, i) in JAZZJAM"
+            :key="i"
+            aria-hidden="true"
+            :variants="letter"
+            class="inline-block"
+          >
+            {{ char }}
+          </motion.span>
+        </motion.h1>
+        <motion.p
+          class="font-lazy mt-1 max-w-2xl text-3xl text-black"
+          initial="offscreen"
+          while-in-view="onscreen"
+          :in-view-options="{ amount: 0.3, once: true }"
+          :variants="cardVariants"
+        >
+          A jam where any musician can get up and play.
+        </motion.p>
+      </div>
+    </motion.section>
   </div>
 </template>
+
+<style scoped>
+.video-splat-top,
+.video-splat-bottom {
+  /* Content above (paper) rolls into the footer (jam) as a wave. */
+  --wave-height: clamp(68px, 3vw, 110px);
+  --negative-wave-height: calc(-1 * var(--wave-height));
+
+  --footer-ink: var(--color-accent-ink);
+  background: var(--footer-bg);
+  color: var(--footer-ink);
+  height: var(--wave-height);
+  position: absolute;
+  width: 100%;
+}
+
+.video-splat-top,
+.video-splat-bottom {
+  position: absolute;
+  /* inset: 0 0 auto; */
+  display: block;
+  width: 100%;
+  height: var(--wave-height);
+  fill: var(--color-paper);
+  pointer-events: none;
+  width: 100%;
+  left: 0;
+  bottom: calc(var(--negative-wave-height) + 10px);
+  z-index: 90;
+}
+
+.video-splat-top {
+  top: 0;
+}
+.video-splat-bottom {
+  bottom: 0;
+  transform: rotate(180deg);
+}
+</style>

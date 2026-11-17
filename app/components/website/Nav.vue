@@ -49,6 +49,9 @@ const links = [
         </NuxtLink>
       </div>
     </details>
-    <a href="#join" class="btn btn--secondary">Join the list</a>
   </nav>
 </template>
+
+<style scoped>
+
+</style>

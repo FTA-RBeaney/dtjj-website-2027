@@ -33,6 +33,7 @@ function handleSubmit(event: FormSubmitEvent<Contact>) {
     <section class="section">
       <div class="container split">
         <div class="card">
+          <NewsletterForm />
           <UForm
             :schema="contactSchema"
             :state="formState"
@@ -77,17 +78,6 @@ function handleSubmit(event: FormSubmitEvent<Contact>) {
               </p>
             </div>
           </UForm>
-        </div>
-        <div class="prose">
-          <h2>We read every message</h2>
-          <p>
-            Whether it’s a question about 2027, an idea for the festival, or you’d like to help out, this goes straight to the team.
-          </p>
-          <p>
-            For anything urgent, the <NuxtLink to="/faq">
-              FAQ
-            </NuxtLink> might already have your answer.
-          </p>
         </div>
       </div>
     </section>

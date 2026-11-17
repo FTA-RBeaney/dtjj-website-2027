@@ -81,7 +81,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
           <UInputNumber
             v-model="state.price"
             :min="0"
-            :step="0.01"
+            :step="1"
             class="w-full"
           />
         </UFormField>

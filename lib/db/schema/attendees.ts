@@ -1,6 +1,6 @@
 import { boolean, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 
-export const attendeesTable = pgTable("attendees", {
+export const attendeesTable = pgTable.withRLS("attendees", {
   id: uuid("id").primaryKey(),
   eventId: uuid("event_id").notNull(),
   firstName: text("first_name"),

@@ -13,11 +13,10 @@ useSeoMeta({
   <div>
     <WebsiteHeader
       title="About Downtown Jazz Jam"
-      subtitle="A London swing dance festival with live music, dance workshops and social events."
     />
 
-    <section class="section">
-      <div class="container">
+    <section class="section grid grid-cols-2">
+      <div class="container ">
         <div class="prose" style="max-width: 65ch; margin-inline: 0;">
           <p class="lead">
             Downtown Jazz Jam is run for the community, by people who love to dance: an inclusive celebration of jazz dance, on the dancefloor and off it.
@@ -31,6 +30,15 @@ useSeoMeta({
             </NuxtLink> to hear when tickets and the lineup are ready.
           </p>
         </div>
+      </div>
+      <div>
+        <NuxtImg
+          src="/images/about-us.jpg"
+          alt="About Downtown Jazz Jam"
+          width="800"
+          height="600"
+          class="rounded-xl"
+        />
       </div>
     </section>
   </div>

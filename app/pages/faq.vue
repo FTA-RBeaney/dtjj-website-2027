@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { faqs } from "~/data/faqs";
-
 definePageMeta({
   layout: "website",
 });
@@ -9,6 +7,8 @@ useSeoMeta({
   title: "FAQ | Downtown Jazz Jam",
   description: "Answers to common questions about Downtown Jazz Jam.",
 });
+
+const { data: faqs } = await useFetch("/api/faq");
 </script>
 
 <template>

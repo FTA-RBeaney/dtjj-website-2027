@@ -23,32 +23,42 @@ const links = [[{
   onSelect: () => {
     open.value = false;
   },
-}, {
-  label: "Settings",
-  to: "/settings",
+}], [{
+  label: "General",
   icon: "i-ph-gear",
-  defaultOpen: true,
-  type: "trigger",
-  children: [{
-    label: "General",
-    to: "/settings",
-    exact: true,
-    onSelect: () => {
-      open.value = false;
-    },
-  }, {
-    label: "Team",
-    to: "/settings/team",
-    onSelect: () => {
-      open.value = false;
-    },
-  }, {
-    label: "Tickets",
-    to: "/settings/tickets",
-    onSelect: () => {
-      open.value = false;
-    },
-  }],
+  to: "/settings",
+  exact: true,
+  onSelect: () => {
+    open.value = false;
+  },
+}, {
+  label: "Team",
+  icon: "i-ph-users",
+  to: "/settings/team",
+  onSelect: () => {
+    open.value = false;
+  },
+}, {
+  label: "Tickets",
+  icon: "i-ph-ticket",
+  to: "/settings/tickets",
+  onSelect: () => {
+    open.value = false;
+  },
+}, {
+  label: "Discounts",
+  icon: "i-ph-shield",
+  to: "/settings/discounts",
+  onSelect: () => {
+    open.value = false;
+  },
+}, {
+  label: "FAQs",
+  icon: "i-ph-question",
+  to: "/settings/faqs",
+  onSelect: () => {
+    open.value = false;
+  },
 }]] satisfies NavigationMenuItem[][];
 
 const groups = computed(() => [{
@@ -132,12 +142,15 @@ onMounted(async () => {
           class="text-xs"
         />
 
+        <h3 class="font-bold">
+          Settings
+        </h3>
+
         <UNavigationMenu
           :collapsed="collapsed"
           :items="links[1]"
           orientation="vertical"
           tooltip
-          class="mt-auto"
         />
       </template>
 
