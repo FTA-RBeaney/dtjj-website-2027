@@ -235,8 +235,13 @@ const letter = computed<Variants>(() =>
       </motion.div>
     </section>
 
-    <section>
-      <h2>Information coming soon...</h2>
+    <section class="mx-auto flex h-screen max-w-2xl flex-col items-center justify-center px-6 py-24 text-center sm:py-32">
+      <h3 class="font-lazy text-2xl font-bold text-black">
+        30th April - 3rd May 2027
+      </h3>
+      <p class="font-lazy mt-4 text-2xl text-black/80">
+        More information coming soon...
+      </p>
     </section>
 
     <!-- <section class="mx-auto flex h-screen max-w-2xl flex-col items-center justify-center px-6 py-24 text-center sm:py-32">

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-const route = useRoute();
+// const route = useRoute();
 
-const links = [
-  { to: "/about", label: "About" },
-  { to: "/faq", label: "FAQ" },
-  { to: "/contact", label: "Contact" },
-];
+// const links = [
+//   { to: "/about", label: "About" },
+//   { to: "/faq", label: "FAQ" },
+//   { to: "/contact", label: "Contact" },
+// ];
 </script>
 
 <template>
@@ -23,7 +23,7 @@ const links = [
       >
       <!-- <span class="site-nav__mark-text">Downtown Jazz Jam</span> -->
     </NuxtLink>
-    <div class="site-nav__links site-nav__links--text">
+    <!-- <div class="site-nav__links site-nav__links--text">
       <NuxtLink
         v-for="link in links"
         :key="link.to"
@@ -39,15 +39,15 @@ const links = [
         Menu
       </summary>
       <div class="site-nav__menu-panel">
-        <!-- <NuxtLink
+        <NuxtLink
           v-for="link in links"
           :key="link.to"
           :to="link.to"
           class="site-nav__link"
         >
           {{ link.label }}
-        </NuxtLink> -->
+        </NuxtLink>
       </div>
-    </details>
+    </details> -->
   </nav>
 </template>
