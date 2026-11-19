@@ -79,10 +79,10 @@ useHead({
 });
 
 const TITLE = "WELCOME";
-const LIVEMUSIC = "MUSIC";
-const CLASSES = "CLASSES";
-const AFTERPARTIES = "AFTERPARTIES";
-const JAZZJAM = "JAZZ JAM";
+// const LIVEMUSIC = "MUSIC";
+// const CLASSES = "CLASSES";
+// const AFTERPARTIES = "AFTERPARTIES";
+// const JAZZJAM = "JAZZ JAM";
 
 const reduce = useReducedMotion();
 
@@ -108,24 +108,24 @@ const letter = computed<Variants>(() =>
       },
 );
 
-const cardVariants: Variants = {
-  offscreen: { opacity: 0, y: 60 },
-  onscreen: {
-    opacity: 1,
-    y: 0,
-    transition: { type: "spring", bounce: 0.3, duration: 0.8 },
-  },
-};
+// const cardVariants: Variants = {
+//   offscreen: { opacity: 0, y: 60 },
+//   onscreen: {
+//     opacity: 1,
+//     y: 0,
+//     transition: { type: "spring", bounce: 0.3, duration: 0.8 },
+//   },
+// };
 
-// John Bubbles slides in from the right when his section scrolls into view.
-const slideIn = computed<Variants>(() =>
-  reduce.value
-    ? { hidden: { x: 0 }, visible: { x: 0 } }
-    : {
-        hidden: { x: 600 },
-        visible: { x: 0, transition: { duration: 0.8, ease: "easeOut" } },
-      },
-);
+// // John Bubbles slides in from the right when his section scrolls into view.
+// const slideIn = computed<Variants>(() =>
+//   reduce.value
+//     ? { hidden: { x: 0 }, visible: { x: 0 } }
+//     : {
+//         hidden: { x: 600 },
+//         visible: { x: 0, transition: { duration: 0.8, ease: "easeOut" } },
+//       },
+// );
 </script>
 
 <template>
@@ -155,7 +155,6 @@ const slideIn = computed<Variants>(() =>
           d="M0,0 H1440 V58 C1396.7,52.7 1265,21.7 1180,26 C1095,30.3 1010,82.7 930,84 C850,85.3 776.7,36 700,34 C623.3,32 551.7,74.7 470,72 C388.3,69.3 288.3,22.3 210,18 C131.7,13.7 35,41.3 0,46 Z"
         />
       </svg>
-      <!-- Background video; .hero__media-wrap adds the slow ken-burns zoom and cover fit -->
       <div class="hero__media-wrap" aria-hidden="true">
         <mux-video
           src="https://stream.mux.com/dODcKqr7S6C700uLo5fOBZ7MlIgMz01TEmWH02E1mnyVHE.m3u8"
@@ -167,12 +166,9 @@ const slideIn = computed<Variants>(() =>
         />
       </div>
 
-      <!-- Contrast scrim so the text stays legible over any frame -->
       <div class="marquee__scrim" />
 
-      <!-- Foreground content -->
       <div class="absolute inset-0 z-10 flex flex-col items-center justify-center px-4 text-center">
-        <!-- Logo: drops in (outer), then sways from the top (inner) -->
         <motion.div
           :initial="reduce ? false : { opacity: 0, y: -28, scale: 0.85 }"
           :animate="{ opacity: 1, y: 0, scale: 1 }"
@@ -195,7 +191,6 @@ const slideIn = computed<Variants>(() =>
           </motion.div>
         </motion.div>
 
-        <!-- WELCOME: parent stagger reveals each letter -->
         <motion.h1
           :aria-label="TITLE"
           :variants="letters"
@@ -214,7 +209,6 @@ const slideIn = computed<Variants>(() =>
           </motion.span>
         </motion.h1>
 
-        <!-- Handwritten sub-line fades up once the title lands -->
         <motion.p
           class="font-lazy mt-1 text-3xl text-white/90 sm:text-4xl"
           :initial="reduce ? false : { opacity: 0, y: 20 }"
@@ -225,7 +219,6 @@ const slideIn = computed<Variants>(() =>
         </motion.p>
       </div>
 
-      <!-- Scroll cue -->
       <motion.div
         class="absolute inset-x-0 bottom-8 z-10 flex justify-center"
         :initial="reduce ? false : { opacity: 0, y: 20 }"
@@ -242,7 +235,7 @@ const slideIn = computed<Variants>(() =>
       </motion.div>
     </section>
 
-    <section class="mx-auto flex h-screen max-w-2xl flex-col items-center justify-center px-6 py-24 text-center sm:py-32">
+    <!-- <section class="mx-auto flex h-screen max-w-2xl flex-col items-center justify-center px-6 py-24 text-center sm:py-32">
       <h2 class="font-lazy text-2xl font-bold text-black">
         Welcome to Downtown Jazz Jam!
       </h2>
@@ -268,7 +261,6 @@ const slideIn = computed<Variants>(() =>
       </motion.div>
       <div class="absolute inset-0 z-2 bg-linear-to-b from-black/30 via-black/10 to-black/60" />
 
-      <!-- Foreground content -->
       <div class="absolute inset-0 z-10 flex flex-col items-center justify-center px-4 text-center">
         <motion.p
           class="font-lazy mt-1 max-w-2xl text-3xl text-white"
@@ -310,8 +302,6 @@ const slideIn = computed<Variants>(() =>
       </div>
     </section>
 
-    <!-- The section (not the off-screen image) is the in-view trigger: the image starts
-         translated outside this overflow-hidden box, so it can never be "in view" itself -->
     <motion.section
       class="relative z-5 h-[90vh] w-full overflow-hidden"
       initial="hidden"
@@ -322,8 +312,6 @@ const slideIn = computed<Variants>(() =>
         class="h-full"
         :variants="slideIn"
       >
-        <!-- width/height must keep the photo's 1248:1527 ratio, or the image server crops it.
-             Eager so it has loaded before the slide plays (lazy made it pop in at the end). -->
         <NuxtImg
           src="/images/john-w-bubbles.png"
           alt="Downtown Jazz Jam"
@@ -334,7 +322,6 @@ const slideIn = computed<Variants>(() =>
         />
       </motion.div>
 
-      <!-- Foreground content -->
       <div class="absolute inset-0 z-10 flex flex-col items-center justify-center px-4 text-center">
         <motion.p
           class="font-lazy mt-1 max-w-2xl text-3xl text-black"
@@ -391,7 +378,6 @@ const slideIn = computed<Variants>(() =>
       </motion.div>
       <div class="absolute inset-0 z-2 bg-linear-to-b from-black/30 via-black/10 to-black/60" />
 
-      <!-- Foreground content -->
       <div class="absolute inset-0 z-10 flex flex-col items-center justify-center px-4 text-center">
         <motion.p
           class="font-lazy mt-1 max-w-2xl text-3xl text-white"
@@ -486,7 +472,7 @@ const slideIn = computed<Variants>(() =>
           A jam where any musician can get up and play.
         </motion.p>
       </div>
-    </motion.section>
+    </motion.section> -->
   </div>
 </template>
 

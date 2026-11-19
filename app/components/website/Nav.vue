@@ -39,19 +39,15 @@ const links = [
         Menu
       </summary>
       <div class="site-nav__menu-panel">
-        <NuxtLink
+        <!-- <NuxtLink
           v-for="link in links"
           :key="link.to"
           :to="link.to"
           class="site-nav__link"
         >
           {{ link.label }}
-        </NuxtLink>
+        </NuxtLink> -->
       </div>
     </details>
   </nav>
 </template>
-
-<style scoped>
-
-</style>

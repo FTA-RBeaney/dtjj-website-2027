@@ -252,7 +252,7 @@ Nuxt (Nitro) detects Netlify on its own and builds server routes as Netlify Func
 
    `BREVO_SMTP_*` aren't needed on Netlify. Supabase sends the auth emails using the SMTP settings in its dashboard.
 
-4. **Prepared statements.** Supabase's transaction pooler doesn't support prepared statements. `lib/db/index.ts` currently creates the client with `postgres(env.DATABASE_URL)`. Before going live on the pooler, change it to `postgres(env.DATABASE_URL, { prepare: false })`, or queries will fail intermittently.
+4. **Database connections.** Server code gets the database with `useDb(event)` (`server/utils/db.ts`), which opens one connection per request and closes it after the response (`server/plugins/close-db.ts`). Don't hold a client in module scope: serverless and Workers runtimes can't reuse a connection from an earlier request, which shows up as a 500 on the first visit after a quiet spell. The client also sets `prepare: false`, because Supabase's transaction pooler doesn't support prepared statements.
 5. **Domain.** Add the custom domain in Netlify, then make sure the Supabase _Site URL_ and _Redirect URLs_ match it (see above).
 6. **Deploy order.** Netlify doesn't run migrations. When a change includes a new migration, run `pnpm drizzle-kit migrate` against production first, then merge or deploy.
 
