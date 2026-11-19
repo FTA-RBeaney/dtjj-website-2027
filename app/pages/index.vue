@@ -235,6 +235,10 @@ const letter = computed<Variants>(() =>
       </motion.div>
     </section>
 
+    <section>
+      <h2>Information coming soon...</h2>
+    </section>
+
     <!-- <section class="mx-auto flex h-screen max-w-2xl flex-col items-center justify-center px-6 py-24 text-center sm:py-32">
       <h2 class="font-lazy text-2xl font-bold text-black">
         Welcome to Downtown Jazz Jam!
