@@ -1,18 +1,18 @@
 <script setup>
-const footerLinks = [
-  { name: "Tickets", href: "/tickets" },
-  { name: "Schedule", href: "/schedule" },
-  { name: "FAQ", href: "/faq" },
-  { name: "Meet the team", href: "/meet-the-team" },
-  { name: "Values", href: "/values" },
-];
+// const footerLinks = [
+//   { name: "Tickets", href: "/tickets" },
+//   { name: "Schedule", href: "/schedule" },
+//   { name: "FAQ", href: "/faq" },
+//   { name: "Meet the team", href: "/meet-the-team" },
+//   { name: "Values", href: "/values" },
+// ];
 
-const footerLinks2 = [
-  { name: "Code of conduct", href: "/code-of-conduct" },
-  { name: "Refund policy", href: "/refund-policy" },
-  { name: "Privacy", href: "/privacy" },
-  { name: "Terms", href: "/terms" },
-];
+// const footerLinks2 = [
+//   { name: "Code of conduct", href: "/code-of-conduct" },
+//   { name: "Refund policy", href: "/refund-policy" },
+//   { name: "Privacy", href: "/privacy" },
+//   { name: "Terms", href: "/terms" },
+// ];
 </script>
 
 <template>
@@ -35,23 +35,23 @@ const footerLinks2 = [
     <UContainer>
       <div class=" max-w-7xl mx-auto">
         <div class="flex flex-col md:flex-row items-center gap-8 w-8/12 justify-center mx-auto">
-          <NuxtLink
+          <!-- <NuxtLink
             v-for="link in footerLinks"
             :key="link.name"
             :href="link.href"
           >
             {{ link.name }}
-          </NuxtLink>
+          </NuxtLink> -->
         </div>
         <div class="flex flex-col md:flex-row items-center gap-8 w-8/12 justify-center mx-auto mt-4">
-          <NuxtLink
+          <!-- <NuxtLink
             v-for="link in footerLinks2"
             :key="link.name"
             :href="link.href"
             class="text-sm"
           >
             {{ link.name }}
-          </NuxtLink>
+          </NuxtLink> -->
         </div>
       </div>
       <div>
