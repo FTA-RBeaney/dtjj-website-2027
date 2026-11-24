@@ -1,11 +1,10 @@
 <script setup lang="ts">
-// const route = useRoute();
+const route = useRoute();
 
-// const links = [
-//   { to: "/about", label: "About" },
-//   { to: "/faq", label: "FAQ" },
-//   { to: "/contact", label: "Contact" },
-// ];
+const links = [
+  { to: "/vision", label: "Vision" },
+  // { to: "/values", label: "Values" },
+];
 </script>
 
 <template>
@@ -23,7 +22,7 @@
       >
       <!-- <span class="site-nav__mark-text">Downtown Jazz Jam</span> -->
     </NuxtLink>
-    <!-- <div class="site-nav__links site-nav__links--text">
+    <div class="site-nav__links site-nav__links--text">
       <NuxtLink
         v-for="link in links"
         :key="link.to"
@@ -48,6 +47,6 @@
           {{ link.label }}
         </NuxtLink>
       </div>
-    </details> -->
+    </details>
   </nav>
 </template>

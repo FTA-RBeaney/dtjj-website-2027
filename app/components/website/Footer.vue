@@ -151,7 +151,7 @@ footer a:hover {
 }
 
 footer h3 {
-  font-size: clamp(2.5rem, 4vw + 5rem, 50rem);
+  font-size: clamp(2.5rem, 4vw + 4rem, 50rem);
   text-align: center;
 }
 </style>

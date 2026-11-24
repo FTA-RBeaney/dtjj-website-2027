@@ -235,13 +235,15 @@ const letter = computed<Variants>(() =>
       </motion.div>
     </section>
 
-    <section class="mx-auto flex h-screen max-w-2xl flex-col items-center justify-center px-6 py-24 text-center sm:py-32">
-      <h3 class="font-lazy text-2xl font-bold text-black">
+    <section class="mx-auto flex h-screen max-w-7xl flex-col items-center justify-center px-6 py-24 text-center sm:py-32">
+      <h2 class="font-lazy !text-7xl font-bold text-black">
         30th April - 3rd May 2027
-      </h3>
-      <p class="font-lazy mt-4 text-2xl text-black/80">
-        More information coming soon...
+      </h2>
+      <p class="font-lazy my-4 text-2xl text-black/80">
+        More information coming soon. For now, check out last year's highlights...
       </p>
+
+      <Player url="https://stream.mux.com/dODcKqr7S6C700uLo5fOBZ7MlIgMz01TEmWH02E1mnyVHE.m3u8" />
     </section>
 
     <!-- <section class="mx-auto flex h-screen max-w-2xl flex-col items-center justify-center px-6 py-24 text-center sm:py-32">

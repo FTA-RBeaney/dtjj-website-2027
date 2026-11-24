@@ -24,6 +24,14 @@ useSeoMeta({
 });
 </script>
 
+<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-K6VP39ST"></script>
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+</script>
+
 <template>
   <UApp>
     <NuxtLayout>

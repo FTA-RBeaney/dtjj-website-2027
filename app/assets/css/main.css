@@ -1,10 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Lilita+One&display=swap");
+
 @import "tailwindcss";
 @import "@nuxt/ui";
 @import "./tokens.css";
 @import "./base.css";
 @import "./website.css";
-
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Lilita+One&display=swap");
 
 @theme {
   --font-sans: "Figtree", sans-serif;
