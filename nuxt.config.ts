@@ -15,7 +15,6 @@ export default defineNuxtConfig({
     "@nuxt/scripts",
     "@nuxtjs/google-fonts",
     "@nuxtjs/supabase",
-    "nuxt/gtag",
   ],
 
   devtools: {
@@ -23,10 +22,6 @@ export default defineNuxtConfig({
   },
 
   css: ["~/assets/css/main.css"],
-
-  gtag: {
-    id: "GTM-K6VP39ST",
-  },
 
   routeRules: {
     "/": { prerender: true },
@@ -58,6 +53,15 @@ export default defineNuxtConfig({
   vue: {
     compilerOptions: {
       isCustomElement: tag => videoJsElements.has(tag),
+    },
+  },
+
+  scripts: {
+    registry: {
+      googleTagManager: {
+        id: "GTM-K6VP39ST",
+        trigger: "onNuxtReady",
+      },
     },
   },
 });
